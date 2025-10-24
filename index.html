@@ -30,7 +30,8 @@
     /* Hero */
     .hero { position:relative; min-height: 86vh; padding: 120px 0 80px; color:#fff; overflow:hidden; }
     .hero .overlay { position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25) 40%, rgba(0,0,0,.55)); z-index:2; }
-    .hero .container { position:relative; z-index:3; }
+    .hero .hero-content { position:relative; z-index:3; transition:opacity .5s ease, transform .5s ease; }
+    .hero-content.hide { opacity:0; transform: translateY(-12px); pointer-events:none; }
     .hero-title { font-weight:900; font-size:clamp(32px,5vw,56px); letter-spacing:-.02em; text-shadow:0 6px 28px rgba(0,0,0,.35); }
     .hero-sub { font-size:1.15rem; opacity:.95; }
     .hero-quick { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25); backdrop-filter: blur(6px); border-radius:18px; }
@@ -59,16 +60,13 @@
     .service-title { font-weight:800; }
 
     .nav-link { font-weight:600; }
-
-    /* (4) Esconder conteúdo textual do hero para não ficar à frente do vídeo/imagem */
-    .hero > .container { display:none; }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-white sticky-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
-        <!-- (3) Logo ainda não existe; esconde se 404 -->
+        <!-- Logo será adicionado depois; se não existir, esconde -->
         <img class="brand-logo" src="templates/img/logo-ibb.png" alt="Transporte Versátil" onerror="this.style.display='none';" />
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nv" aria-controls="nv" aria-expanded="false" aria-label="Abrir menu">
@@ -126,12 +124,12 @@
   </nav>
 
   <header class="hero" id="top">
-    <!-- 1) VÍDEO (slide 0) - roda até o usuário avançar -->
+    <!-- slide 0: vídeo (roda até o usuário avançar) -->
     <video class="hero-slide hero-video active" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="imagens/04062019081403.jpg">
       <source src="video/video-entrada.mp4" type="video/mp4">
     </video>
 
-    <!-- 2..n) IMAGENS DE FUNDO (ajustadas ao que existe no repo) -->
+    <!-- slides 1..n: imagens (conforme seu repo) -->
     <div class="hero-slide hero-bg" style="background-image:url('imagens/04062019081403.jpg')"></div>
     <div class="hero-slide hero-bg" style="background-image:url('imagens/04062019081416.jpg')"></div>
 
@@ -141,6 +139,21 @@
     <button class="hero-prev" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
     <button class="hero-next" aria-label="Próximo"><i class="bi bi-chevron-right"></i></button>
     <div class="hero-dots" aria-label="Indicadores do slideshow"></div>
+
+    <!-- Texto do hero (visível no início; some quando vídeo está ativo) -->
+    <div class="container hero-content" id="heroText">
+      <div class="row justify-content-center text-center">
+        <div class="col-xl-10">
+          <h1 class="hero-title mb-3">Somos profissionais em transporte refrigerado</h1>
+          <p class="hero-sub mb-4">Segurança, pontualidade e tecnologia para manter sua carga na temperatura ideal, do embarque à entrega.</p>
+          <div class="hero-quick d-inline-flex align-items-stretch overflow-hidden">
+            <a class="btn btn-light btn-lg rounded-0" href="#frota"><i class="bi bi-snow"></i> Refrigerado</a>
+            <a class="btn btn-outline-light btn-lg rounded-0" href="#sobre"><i class="bi bi-info-circle"></i> Sobre nós</a>
+            <a class="btn btn-primary btn-lg rounded-0" href="#contato"><i class="bi bi-chat-dots"></i> Fale conosco</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Serviços -->
@@ -308,15 +321,23 @@
     const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 8);
     window.addEventListener('scroll', onScroll); onScroll();
 
-    // Slideshow: AUTO-AVANÇA APENAS EM IMAGENS (não avança quando é vídeo)
+    // Slideshow
     const slides = Array.from(document.querySelectorAll('.hero-slide'));
     const dotsWrap = document.querySelector('.hero-dots');
     const prevBtn = document.querySelector('.hero-prev');
     const nextBtn = document.querySelector('.hero-next');
     const hero = document.querySelector('.hero');
+    const heroText = document.getElementById('heroText');
     const videoEl = document.getElementById('heroVideo');
 
     let idx = 0, timer = null, hoverPause = false;
+
+    function setHeroTextVisibility(){
+      // esconde texto quando o slide atual é o vídeo, mostra nas imagens
+      if (!heroText) return;
+      if (slides[idx] === videoEl) heroText.classList.add('hide');
+      else heroText.classList.remove('hide');
+    }
 
     function renderDots(){
       if (!dotsWrap) return;
@@ -324,7 +345,7 @@
       slides.forEach((_, i)=>{
         const d = document.createElement('div');
         d.className = 'hero-dot' + (i===idx?' active':'');
-        d.addEventListener('click', ()=> goTo(i));
+        d.addEventListener('click', ()=> { goTo(i); restartAuto(); });
         dotsWrap.appendChild(d);
       });
     }
@@ -335,6 +356,7 @@
       idx = (i + slides.length) % slides.length;
       slides[idx].classList.add('active');
       if (slides[idx] === videoEl) { videoEl.play().catch(()=>{}); }
+      setHeroTextVisibility();
       renderDots();
     }
 
@@ -342,29 +364,33 @@
     function prev(){ goTo(idx-1); }
 
     function tick(){
-      // Só avança se NÃO for o vídeo e não estiver pausado por hover
+      // só avança automaticamente se for imagem
       if (!hoverPause && slides[idx] !== videoEl) next();
     }
-
     function start(){ timer = setInterval(tick, 5000); }
     function stop(){ if (timer) { clearInterval(timer); timer=null; } }
+    function restartAuto(){ stop(); start(); }
 
-    if (nextBtn) nextBtn.addEventListener('click', ()=>{ stop(); next(); start(); });
-    if (prevBtn) prevBtn.addEventListener('click', ()=>{ stop(); prev(); start(); });
+    if (nextBtn) nextBtn.addEventListener('click', ()=>{ next(); restartAuto(); });
+    if (prevBtn) prevBtn.addEventListener('click', ()=>{ prev(); restartAuto(); });
 
     if (hero) {
       hero.addEventListener('mouseenter', ()=>{ hoverPause = true; });
       hero.addEventListener('mouseleave', ()=>{ hoverPause = false; });
     }
 
-    // Fallback: se o VÍDEO não carregar, pula para o slide 1 (imagem)
+    // quando o vídeo começar a tocar, garanta que o texto esconda
     if (videoEl) {
+      const hideOnPlay = ()=> setHeroTextVisibility();
+      videoEl.addEventListener('play', hideOnPlay);
+      // Fallback: se o VÍDEO não carregar, pula para a 1ª imagem
       const failToImage = ()=> { goTo(1); };
       videoEl.addEventListener('error', failToImage);
       videoEl.addEventListener('stalled', failToImage);
       videoEl.addEventListener('emptied', failToImage);
     }
 
+    setHeroTextVisibility();
     renderDots();
     start();
   </script>
