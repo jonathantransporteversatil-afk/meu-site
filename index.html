@@ -18,6 +18,11 @@
     .card-header {background:transparent; border-bottom:1px solid rgba(0,0,0,.05); font-weight:700; color:#013a8a;}
     .fleet-cover {height:200px; background-size:cover; background-position:center; border-radius:14px 14px 0 0;}
     footer {background:#0b1e44; color:#fff; padding:30px 0; text-align:center;}
+    /* Lista com ícones (Detalhes Técnicos) */
+    .feature-list { list-style: none; padding: 0; margin: 0; }
+    .feature-list li { display: flex; align-items: flex-start; gap: .6rem; margin: .45rem 0; }
+    .feature-list .bi { font-size: 1.1rem; line-height: 1.2; }
+
 
     /* Mega menu hover */
     .navbar .dropdown:hover .dropdown-menu { display:block; margin-top:0; }
@@ -261,20 +266,50 @@
           </div>
         </div>
         <div class="col-12">
-          <div class="card">
-            <div class="card-header">Detalhes Técnicos</div>
-            <div class="card-body">
-              <p>Toda a frota é da marca Volvo, referência mundial em segurança veicular. Com inteligência embarcada, baixo índice de poluição e respeito ambiental. 80% da frota possui câmbio automático e rastreamento híbrido em tempo real.</p>
-              <ul>
-                <li>Cavalos mecânicos – 30 toneladas</li>
-                <li>Carretas refrigeradas automatizadas</li>
-                <li>Trucks semi-pesados – 14 toneladas</li>
-              </ul>
-            </div>
-          </div>
+      <div class="card">
+    <div class="card-header">Detalhes Técnicos</div>
+    <div class="card-body">
+      <p>
+        Toda a frota é da marca Volvo, referência mundial em segurança veicular. 
+        Com inteligência embarcada, baixo índice de poluição e respeito ambiental. 
+        80% da frota possui câmbio automático e rastreamento híbrido em tempo real.
+      </p>
+
+      <div class="row g-4">
+        <!-- Coluna 1: Modalidades -->
+        <div class="col-md-6">
+          <div class="text-uppercase small fw-bold text-muted mb-2">Modalidades</div>
+          <ul class="feature-list">
+            <li><i class="bi bi-snow text-primary"></i> <span>Transporte refrigerado</span></li>
+            <li><i class="bi bi-box-seam text-primary"></i> <span>Linha seca (cargas completas)</span></li>
+            <li><i class="bi bi-truck text-primary"></i> <span>Truck</span></li>
+            <li><i class="bi bi-truck-front text-primary"></i> <span>Carreta</span></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 2: Recursos -->
+        <div class="col-md-6">
+          <div class="text-uppercase small fw-bold text-muted mb-2">Recursos</div>
+          <ul class="feature-list">
+            <li><i class="bi bi-cpu text-primary"></i> <span>Inteligência embarcada Volvo</span></li>
+            <li><i class="bi bi-geo-alt text-primary"></i> <span>Rastreamento híbrido em tempo real</span></li>
+            <li><i class="bi bi-thermometer-snow text-primary"></i> <span>Thermo King &amp; Carrier</span></li>
+            <li><i class="bi bi-gear text-primary"></i> <span>80% câmbio automático</span></li>
+          </ul>
         </div>
       </div>
+
+      <hr class="my-4">
+
+      <!-- Especificações resumidas (mantidas) -->
+      <ul class="mb-0">
+        <li>Cavalos mecânicos – 30 toneladas</li>
+        <li>Carretas refrigeradas automatizadas</li>
+        <li>Trucks semi-pesados – 14 toneladas</li>
+      </ul>
     </div>
+  </div>
+</div>
   </section>
 
 <section id="contato">
