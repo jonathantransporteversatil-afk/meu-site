@@ -277,45 +277,141 @@
     </div>
   </section>
 
-  <section id="contato">
-    <div class="container">
-      <h2 class="section-title">Contato</h2>
-      <div class="row g-4">
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header">Matriz – Canoas/RS</div>
-            <div class="card-body">
-              <p>Antonio Frederico Ozanam, 540 – Bairro Brigadeira – Canoas/RS – CEP 92420-360</p>
-              <p><i class="bi bi-telephone"></i> (51) 3472-1545</p>
-              <p><i class="bi bi-envelope"></i> transporteversatil@transporteversatil.com.br</p>
-            </div>
+<section id="contato">
+  <div class="container">
+    <h2 class="section-title">Contato</h2>
+
+    <!-- cartões de endereços (mantidos) -->
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Matriz – Canoas/RS</div>
+          <div class="card-body">
+            <p>Antonio Frederico Ozanam, 540 – Bairro Brigadeira – Canoas/RS – CEP 92420-360</p>
+            <p><i class="bi bi-telephone"></i> (51) 3472-1545</p>
+            <p><i class="bi bi-envelope"></i> transporteversatil@transporteversatil.com.br</p>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-header">Filial – Pederneiras/SP</div>
-            <div class="card-body">
-              <p>Av. José Ilio Veronez, 105 – Distrito Industrial – Pederneiras/SP – CEP 17280-000</p>
-              <p><i class="bi bi-telephone"></i> (14) 3252-4050</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="card text-center">
-            <div class="card-body">
-              <p class="mb-0"><strong>Ficaremos felizes em ajudá-lo</strong> em qualquer assunto que pudermos. Entre em contato conosco pelo e-mail <a href="mailto:transporteversatil@transporteversatil.com.br">transporteversatil@transporteversatil.com.br</a>.</p>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Filial – Pederneiras/SP</div>
+          <div class="card-body">
+            <p>Av. José Ilio Veronez, 105 – Distrito Industrial – Pederneiras/SP – CEP 17280-000</p>
+            <p><i class="bi bi-telephone"></i> (14) 3252-4050</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- bloco do formulário -->
+    <div class="row g-4 mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">Fale Conosco</div>
+          <div class="card-body">
+            <!-- Netlify Forms -->
+            <form name="contato-site" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?success=1" class="needs-validation" novalidate>
+              <!-- campos necessários para o Netlify -->
+              <input type="hidden" name="form-name" value="contato-site">
+              <p class="d-none">
+                <label>Não preencher: <input name="bot-field"></label>
+              </p>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nome</label>
+                  <input type="text" name="nome" class="form-control" required>
+                  <div class="invalid-feedback">Informe seu nome.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">E-mail</label>
+                  <input type="email" name="email" class="form-control" required>
+                  <div class="invalid-feedback">Informe um e-mail válido.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Telefone (opcional)</label>
+                  <input type="tel" name="telefone" class="form-control" placeholder="(00) 00000-0000">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Assunto</label>
+                  <input type="text" name="assunto" class="form-control" required>
+                  <div class="invalid-feedback">Informe o assunto.</div>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Mensagem</label>
+                  <textarea name="mensagem" class="form-control" rows="5" required></textarea>
+                  <div class="invalid-feedback">Escreva sua mensagem.</div>
+                </div>
+                <div class="col-12 d-flex gap-2">
+                  <button class="btn btn-primary btn-lg" type="submit">
+                    <i class="bi bi-send"></i> Enviar
+                  </button>
+                  <a class="btn btn-outline-secondary btn-lg" href="mailto:transporteversatil@transporteversatil.com.br">
+                    <i class="bi bi-envelope"></i> Preferir e-mail
+                  </a>
+                </div>
+              </div>
+            </form>
+
+            <!-- alerta de sucesso (mostrado via JS quando ?success=1) -->
+            <div id="formOk" class="alert alert-success mt-3 d-none" role="alert">
+              <i class="bi bi-check-circle"></i> Mensagem enviada com sucesso! Em breve entraremos em contato.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card text-center">
+          <div class="card-body">
+            <p class="mb-0">
+              <strong>Ficaremos felizes em ajudá-lo</strong> em qualquer assunto que pudermos.
+              Entre em contato conosco pelo e-mail
+              <a href="mailto:transporteversatil@transporteversatil.com.br">transporteversatil@transporteversatil.com.br</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
   <footer>
     <p>© 2019 Versátil – A vida é dinâmica. O transporte versátil.</p>
   </footer>
 
   <script>
+  // Bootstrap validation no submit
+  (function () {
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', evt => {
+        if (!form.checkValidity()) {
+          evt.preventDefault();
+          evt.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+
+  // Mostra mensagem de sucesso após o Netlify redirecionar para /?success=1
+  (function () {
+    const ok = document.getElementById('formOk');
+    if (!ok) return;
+    const url = new URL(window.location.href);
+    if (url.searchParams.get('success') === '1') {
+      ok.classList.remove('d-none');
+      // rolar até o alerta:
+      ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // limpa a query na barra (opcional)
+      history.replaceState({}, '', url.pathname);
+    }
+  })();
     // Navbar translucente ao rolar
     const nav = document.querySelector('.navbar');
     const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 8);
