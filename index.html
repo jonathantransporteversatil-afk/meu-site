@@ -11,32 +11,44 @@
     body {font-family: Inter, sans-serif; background: #f7fbff; color: #0f172a;}
     .navbar {box-shadow: 0 4px 12px rgba(0,0,0,.05);}
     .brand-logo {height: 56px;}
-    section {padding: 80px 0;}
-    .section-title {font-weight:800; text-align:center; margin-bottom:2.75rem;}
+    section {padding: 48px 0;}
+
+    /* TITULOS DE SEÇÃO – padronizado (inclusive “Nossa Frota”) */
+    .section-title {
+      font-weight:800;
+      text-align:center;
+      margin-bottom:1.6rem;
+      color:#0f172a;
+      font-size: clamp(32px,5vw,36px);  /* igual ao usado em Detalhes Técnicos */
+      line-height:1.15;
+    }
+
     .card {border:none; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.05); background:white; transition:transform .3s ease, box-shadow .3s ease;}
     .card:hover {transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,.08);}
     .card-header {background:transparent; border-bottom:1px solid rgba(0,0,0,.05); font-weight:700; color:#013a8a;}
     .fleet-cover {height:200px; background-size:cover; background-position:center; border-radius:14px 14px 0 0;}
     footer {background:#0b1e44; color:#fff; padding:30px 0; text-align:center;}
+
     /* Lista com ícones (Detalhes Técnicos) */
     .feature-list { list-style: none; padding: 0; margin: 0; }
     .feature-list li { display: flex; align-items: flex-start; gap: .6rem; margin: .45rem 0; }
     .feature-list .bi { font-size: 1.1rem; line-height: 1.2; }
-    /* Header de card com cara de título de seção */
-.as-section-title{
-  background: transparent !important;
-  border: 0 !important;
-  text-align: center;
-  font-weight: 800;                      /* igual à .section-title */
-  color: #0f172a;                        /* mesma cor do site */
-  font-size: clamp(32px,5vw,36px);       /* tamanho semelhante ao h2 .section-title */
-  line-height: 1.15;
-  padding: 1rem 1rem 0.75rem;
-  margin: 0;
-}
-.as-section-title + .card-body{
-  padding-top: 1.25rem;                  /* respiro depois do título */
-}
+
+    /* Header de card com cara de título de seção (usado em Detalhes Técnicos e Fale Conosco) */
+    .as-section-title{
+      background: transparent !important;
+      border: 0 !important;
+      text-align: center;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: clamp(32px,5vw,36px);
+      line-height: 1.15;
+      padding: 1rem 1rem 0.75rem;
+      margin: 0;
+    }
+    .as-section-title + .card-body{
+      padding-top: 1.25rem;
+    }
 
     /* Mega menu hover */
     .navbar .dropdown:hover .dropdown-menu { display:block; margin-top:0; }
@@ -66,7 +78,6 @@
     .hero-next { right:18px; }
 
     .hero-dots { position:absolute; left:0; right:0; bottom:18px; display:flex; gap:10px; justify-content:center; z-index:4; }
-    .hero-dot { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.5); border:1px solid rgba(255,255,255,.7); cursor:pointer; transition:transform .2s ease, background .2s ease; }
     .hero-dot.active { background:#fff; transform:scale(1.15); }
 
     .navbar.scrolled { background: rgba(255,255,255,.9) !important; backdrop-filter: blur(8px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
@@ -280,154 +291,154 @@
           </div>
         </div>
         <div class="col-12">
-      <div class="card">
-    <div class="card-header as-section-title">Detalhes Técnicos</div>
-    <div class="card-body">
-      <p>
-        Toda a frota é da marca Volvo, referência mundial em segurança veicular. 
-        Com inteligência embarcada, baixo índice de poluição e respeito ambiental. 
-        80% da frota possui câmbio automático e rastreamento híbrido em tempo real.
-      </p>
-
-      <div class="row g-4">
-        <!-- Coluna 1: Modalidades -->
-        <div class="col-md-6">
-          <div class="text-uppercase small fw-bold text-muted mb-2">Modalidades</div>
-          <ul class="feature-list">
-            <li><i class="bi bi-snow text-primary"></i> <span>Transporte refrigerado</span></li>
-            <li><i class="bi bi-box-seam text-primary"></i> <span>Linha seca (cargas completas)</span></li>
-            <li><i class="bi bi-truck text-primary"></i> <span>Truck</span></li>
-            <li><i class="bi bi-truck-front text-primary"></i> <span>Carreta</span></li>
-          </ul>
-        </div>
-
-        <!-- Coluna 2: Recursos -->
-        <div class="col-md-6">
-          <div class="text-uppercase small fw-bold text-muted mb-2">Recursos</div>
-          <ul class="feature-list">
-            <li><i class="bi bi-cpu text-primary"></i> <span>Inteligência embarcada Volvo</span></li>
-            <li><i class="bi bi-geo-alt text-primary"></i> <span>Rastreamento híbrido em tempo real</span></li>
-            <li><i class="bi bi-thermometer-snow text-primary"></i> <span>Thermo King &amp; Carrier</span></li>
-            <li><i class="bi bi-gear text-primary"></i> <span>80% câmbio automático</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <hr class="my-4">
-
-      <!-- Especificações resumidas (mantidas) -->
-      <ul class="mb-0">
-        <li>Cavalos mecânicos – 30 toneladas</li>
-        <li>Carretas refrigeradas automatizadas</li>
-        <li>Trucks semi-pesados – 14 toneladas</li>
-      </ul>
-    </div>
-  </div>
-</div>
-  </section>
-
-<section id="contato">
-  <div class="container">
-    <h2 class="section-title">Contato</h2>
-
-    <!-- cartões de endereços (mantidos) -->
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card h-100">
-          <div class="card-header">Matriz – Canoas/RS</div>
-          <div class="card-body">
-            <p>Antonio Frederico Ozanam, 540 – Bairro Brigadeira – Canoas/RS – CEP 92420-360</p>
-            <p><i class="bi bi-telephone"></i> (51) 3472-1545</p>
-            <p><i class="bi bi-envelope"></i> transporteversatil@transporteversatil.com.br</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card h-100">
-          <div class="card-header">Filial – Pederneiras/SP</div>
-          <div class="card-body">
-            <p>Av. José Ilio Veronez, 105 – Distrito Industrial – Pederneiras/SP – CEP 17280-000</p>
-            <p><i class="bi bi-telephone"></i> (14) 3252-4050</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- bloco do formulário -->
-    <div class="row g-4 mt-4">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">Fale Conosco</div>
-          <div class="card-body">
-            <!-- Netlify Forms -->
-            <form name="contato-site" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?success=1" class="needs-validation" novalidate>
-              <!-- campos necessários para o Netlify -->
-              <input type="hidden" name="form-name" value="contato-site">
-              <p class="d-none">
-                <label>Não preencher: <input name="bot-field"></label>
+          <div class="card">
+            <div class="card-header as-section-title">Detalhes Técnicos</div>
+            <div class="card-body">
+              <p>
+                Toda a frota é da marca Volvo, referência mundial em segurança veicular. 
+                Com inteligência embarcada, baixo índice de poluição e respeito ambiental. 
+                80% da frota possui câmbio automático e rastreamento híbrido em tempo real.
               </p>
 
-              <div class="row g-3">
+              <div class="row g-4">
+                <!-- Coluna 1: Modalidades -->
                 <div class="col-md-6">
-                  <label class="form-label">Nome</label>
-                  <input type="text" name="nome" class="form-control" required>
-                  <div class="invalid-feedback">Informe seu nome.</div>
+                  <div class="text-uppercase small fw-bold text-muted mb-2">Modalidades</div>
+                  <ul class="feature-list">
+                    <li><i class="bi bi-snow text-primary"></i> <span>Transporte refrigerado</span></li>
+                    <li><i class="bi bi-box-seam text-primary"></i> <span>Linha seca (cargas completas)</span></li>
+                    <li><i class="bi bi-truck text-primary"></i> <span>Truck</span></li>
+                    <li><i class="bi bi-truck-front text-primary"></i> <span>Carreta</span></li>
+                  </ul>
                 </div>
+
+                <!-- Coluna 2: Recursos -->
                 <div class="col-md-6">
-                  <label class="form-label">E-mail</label>
-                  <input type="email" name="email" class="form-control" required>
-                  <div class="invalid-feedback">Informe um e-mail válido.</div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Telefone (opcional)</label>
-                  <input type="tel" name="telefone" class="form-control" placeholder="(00) 00000-0000">
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Assunto</label>
-                  <input type="text" name="assunto" class="form-control" required>
-                  <div class="invalid-feedback">Informe o assunto.</div>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Mensagem</label>
-                  <textarea name="mensagem" class="form-control" rows="5" required></textarea>
-                  <div class="invalid-feedback">Escreva sua mensagem.</div>
-                </div>
-                <div class="col-12 d-flex gap-2">
-                  <button class="btn btn-primary btn-lg" type="submit">
-                    <i class="bi bi-send"></i> Enviar
-                  </button>
-                  <a class="btn btn-outline-secondary btn-lg" href="mailto:transporteversatil@transporteversatil.com.br">
-                    <i class="bi bi-envelope"></i> Preferir e-mail
-                  </a>
+                  <div class="text-uppercase small fw-bold text-muted mb-2">Recursos</div>
+                  <ul class="feature-list">
+                    <li><i class="bi bi-cpu text-primary"></i> <span>Inteligência embarcada Volvo</span></li>
+                    <li><i class="bi bi-geo-alt text-primary"></i> <span>Rastreamento híbrido em tempo real</span></li>
+                    <li><i class="bi bi-thermometer-snow text-primary"></i> <span>Thermo King &amp; Carrier</span></li>
+                    <li><i class="bi bi-gear text-primary"></i> <span>80% câmbio automático</span></li>
+                  </ul>
                 </div>
               </div>
-            </form>
 
-            <!-- alerta de sucesso (mostrado via JS quando ?success=1) -->
-            <div id="formOk" class="alert alert-success mt-3 d-none" role="alert">
-              <i class="bi bi-check-circle"></i> Mensagem enviada com sucesso! Em breve entraremos em contato.
+              <hr class="my-4">
+
+              <!-- Especificações resumidas (mantidas) -->
+              <ul class="mb-0">
+                <li>Cavalos mecânicos – 30 toneladas</li>
+                <li>Carretas refrigeradas automatizadas</li>
+                <li>Trucks semi-pesados – 14 toneladas</li>
+              </ul>
             </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <div class="card text-center">
-          <div class="card-body">
-            <p class="mb-0">
-              <strong>Ficaremos felizes em ajudá-lo</strong> em qualquer assunto que pudermos.
-              Entre em contato conosco pelo e-mail
-              <a href="mailto:transporteversatil@transporteversatil.com.br">transporteversatil@transporteversatil.com.br</a>.
-            </p>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <section id="contato">
+    <div class="container">
+      <h2 class="section-title">Contato</h2>
 
+      <!-- cartões de endereços (mantidos) -->
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header">Matriz – Canoas/RS</div>
+            <div class="card-body">
+              <p>Antonio Frederico Ozanam, 540 – Bairro Brigadeira – Canoas/RS – CEP 92420-360</p>
+              <p><i class="bi bi-telephone"></i> (51) 3472-1545</p>
+              <p><i class="bi bi-envelope"></i> transporteversatil@transporteversatil.com.br</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header">Filial – Pederneiras/SP</div>
+            <div class="card-body">
+              <p>Av. José Ilio Veronez, 105 – Distrito Industrial – Pederneiras/SP – CEP 17280-000</p>
+              <p><i class="bi bi-telephone"></i> (14) 3252-4050</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- bloco do formulário -->
+      <div class="row g-4 mt-4">
+        <div class="col-12">
+          <div class="card">
+            <!-- AJUSTE: “Fale Conosco” com mesmo estilo de título de seção -->
+            <div class="card-header as-section-title">Fale Conosco</div>
+            <div class="card-body">
+              <!-- Netlify Forms -->
+              <form name="contato-site" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?success=1" class="needs-validation" novalidate>
+                <input type="hidden" name="form-name" value="contato-site">
+                <p class="d-none">
+                  <label>Não preencher: <input name="bot-field"></label>
+                </p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" required>
+                    <div class="invalid-feedback">Informe seu nome.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">E-mail</label>
+                    <input type="email" name="email" class="form-control" required>
+                    <div class="invalid-feedback">Informe um e-mail válido.</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Telefone (opcional)</label>
+                    <input type="tel" name="telefone" class="form-control" placeholder="(00) 00000-0000">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Assunto</label>
+                    <input type="text" name="assunto" class="form-control" required>
+                    <div class="invalid-feedback">Informe o assunto.</div>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label">Mensagem</label>
+                    <textarea name="mensagem" class="form-control" rows="5" required></textarea>
+                    <div class="invalid-feedback">Escreva sua mensagem.</div>
+                  </div>
+                  <div class="col-12 d-flex gap-2">
+                    <button class="btn btn-primary btn-lg" type="submit">
+                      <i class="bi bi-send"></i> Enviar
+                    </button>
+                    <a class="btn btn-outline-secondary btn-lg" href="mailto:transporteversatil@transporteversatil.com.br">
+                      <i class="bi bi-envelope"></i> Preferir e-mail
+                    </a>
+                  </div>
+                </div>
+              </form>
+
+              <div id="formOk" class="alert alert-success mt-3 d-none" role="alert">
+                <i class="bi bi-check-circle"></i> Mensagem enviada com sucesso! Em breve entraremos em contato.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card text-center">
+            <div class="card-body">
+              <p class="mb-0">
+                <strong>Ficaremos felizes em ajudá-lo</strong> em qualquer assunto que pudermos.
+                Entre em contato conosco pelo e-mail
+                <a href="mailto:transporteversatil@transporteversatil.com.br">transporteversatil@transporteversatil.com.br</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <footer>
     <p>© 2019 Versátil – A vida é dinâmica. O transporte versátil.</p>
@@ -455,12 +466,11 @@
     const url = new URL(window.location.href);
     if (url.searchParams.get('success') === '1') {
       ok.classList.remove('d-none');
-      // rolar até o alerta:
       ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // limpa a query na barra (opcional)
       history.replaceState({}, '', url.pathname);
     }
   })();
+
     // Navbar translucente ao rolar
     const nav = document.querySelector('.navbar');
     const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 8);
@@ -478,7 +488,6 @@
     let idx = 0, timer = null, hoverPause = false;
 
     function setHeroTextVisibility(){
-      // esconde texto quando o slide atual é o vídeo, mostra nas imagens
       if (!heroText) return;
       if (slides[idx] === videoEl) heroText.classList.add('hide');
       else heroText.classList.remove('hide');
@@ -509,7 +518,6 @@
     function prev(){ goTo(idx-1); }
 
     function tick(){
-      // só avança automaticamente se for imagem
       if (!hoverPause && slides[idx] !== videoEl) next();
     }
     function start(){ timer = setInterval(tick, 5000); }
@@ -524,11 +532,9 @@
       hero.addEventListener('mouseleave', ()=>{ hoverPause = false; });
     }
 
-    // quando o vídeo começar a tocar, garanta que o texto esconda
     if (videoEl) {
       const hideOnPlay = ()=> setHeroTextVisibility();
       videoEl.addEventListener('play', hideOnPlay);
-      // Fallback: se o VÍDEO não carregar, pula para a 1ª imagem
       const failToImage = ()=> { goTo(1); };
       videoEl.addEventListener('error', failToImage);
       videoEl.addEventListener('stalled', failToImage);
