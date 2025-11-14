@@ -68,7 +68,21 @@
     .card {border:none; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.05); background:var(--surface); transition:transform .3s ease, box-shadow .3s ease;}
     .card:hover {transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,.08);}
     .card-header {background:transparent; border-bottom:1px solid var(--card-border); font-weight:700; color:var(--brand-blue);}
-    .fleet-cover {height:200px; background-size:cover; background-position:center; border-radius:14px 14px 0 0;}
+    .fleet-cover{
+  /* altura responsiva em vez de fixa */
+  aspect-ratio: 16 / 9;
+  height: auto;
+
+  background-size: cover;
+  /* ponto de foco configurável por variável */
+  background-position: var(--pos, 50% 50%);
+  border-radius:14px 14px 0 0;
+}
+
+/* Pode alongar um pouco em telas maiores (opcional) */
+@media (min-width: 992px){
+  .fleet-cover{ aspect-ratio: 21 / 9; }
+}
 
     footer {
       background: linear-gradient(90deg, var(--brand-blue), var(--brand-orange));
