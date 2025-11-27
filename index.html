@@ -34,15 +34,24 @@
       background:#fff; border-radius:16px; border:0; padding:18px;
       box-shadow:0 18px 48px rgba(2,26,61,.18);
     }
+
+    /* AO ROLAR: mantém o mesmo gradiente e cores */
     .navbar.scrolled{
-      background: rgba(255,255,255,.92) !important;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      background: linear-gradient(90deg, var(--brand-blue), var(--brand-orange)) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      backdrop-filter: none;
     }
     .navbar.scrolled .nav-link,
-    .navbar.scrolled .navbar-brand{ color: var(--brand-blue) !important; }
+    .navbar.scrolled .navbar-brand{ color: #fff !important; }
 
-    .brand-logo {height: 56px;}
+    /* LOGO redondo */
+    .brand-logo {
+      height: 56px;
+      width: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
     section {padding: 48px 0;}
 
     /* TÍTULOS — centralizados + filete em gradiente */
@@ -69,20 +78,19 @@
     .card:hover {transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,.08);}
     .card-header {background:transparent; border-bottom:1px solid var(--card-border); font-weight:700; color:var(--brand-blue);}
     .fleet-cover{
-  /* altura responsiva em vez de fixa */
-  aspect-ratio: 16 / 9;
-  height: auto;
+      /* altura responsiva em vez de fixa */
+      aspect-ratio: 16 / 9;
+      height: auto;
+      background-size: cover;
+      /* ponto de foco configurável por variável */
+      background-position: var(--pos, 50% 50%);
+      border-radius:14px 14px 0 0;
+    }
 
-  background-size: cover;
-  /* ponto de foco configurável por variável */
-  background-position: var(--pos, 50% 50%);
-  border-radius:14px 14px 0 0;
-}
-
-/* Pode alongar um pouco em telas maiores (opcional) */
-@media (min-width: 992px){
-  .fleet-cover{ aspect-ratio: 21 / 9; }
-}
+    /* Pode alongar um pouco em telas maiores (opcional) */
+    @media (min-width: 992px){
+      .fleet-cover{ aspect-ratio: 21 / 9; }
+    }
 
     footer {
       background: linear-gradient(90deg, var(--brand-blue), var(--brand-orange));
@@ -182,9 +190,9 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-white sticky-top">
     <div class="container">
-<a class="navbar-brand d-flex align-items-center gap-2" href="#top">
-  <img class="brand-logo" src="imagens/logo-versatil.png" alt="Versátil Logística" />
-</a>
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#top">
+        <img class="brand-logo" src="imagens/logo-versatil.png" alt="Versátil Logística" />
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nv" aria-controls="nv" aria-expanded="false" aria-label="Abrir menu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -225,6 +233,13 @@
             <a class="btn btn-light btn-lg rounded-0" href="#frota"><i class="bi bi-snow"></i> Refrigerado</a>
             <a class="btn btn-outline-light btn-lg rounded-0" href="#sobre"><i class="bi bi-info-circle"></i> Sobre nós</a>
             <a class="btn btn-primary btn-lg rounded-0" href="#contato"><i class="bi bi-chat-dots"></i> Fale conosco</a>
+          </div>
+
+          <!-- BOTÃO PARA ÁUDIO DO VÍDEO -->
+          <div class="mt-3">
+            <button id="toggleAudio" class="btn btn-sm btn-outline-light">
+              <i class="bi bi-volume-mute-fill"></i> Áudio
+            </button>
           </div>
         </div>
       </div>
@@ -595,7 +610,7 @@
     }
   })();
 
-  // Navbar translucente ao rolar
+  // Navbar translucente ao rolar (mantém classe scrolled, mas CSS já deixa o gradiente igual)
   const nav = document.querySelector('.navbar');
   const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 8);
   window.addEventListener('scroll', onScroll); onScroll();
@@ -608,6 +623,7 @@
   const hero = document.querySelector('.hero');
   const heroText = document.getElementById('heroText');
   const videoEl = document.getElementById('heroVideo');
+  const audioBtn = document.getElementById('toggleAudio');
 
   let idx = 0, timer = null, hoverPause = false;
 
@@ -663,6 +679,21 @@
     videoEl.addEventListener('error', failToImage);
     videoEl.addEventListener('stalled', failToImage);
     videoEl.addEventListener('emptied', failToImage);
+  }
+
+  // BOTÃO DE ÁUDIO: liga/desliga som do vídeo
+  if (audioBtn && videoEl) {
+    let soundOn = false;
+    audioBtn.addEventListener('click', () => {
+      soundOn = !soundOn;
+      videoEl.muted = !soundOn;
+      if (soundOn) {
+        videoEl.play().catch(()=>{});
+        audioBtn.innerHTML = '<i class="bi bi-volume-up-fill"></i> Áudio ligado';
+      } else {
+        audioBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i> Áudio';
+      }
+    });
   }
 
   setHeroTextVisibility();
