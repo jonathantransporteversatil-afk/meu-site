@@ -118,7 +118,7 @@
 
     /* Hero */
     .hero { position:relative; min-height: 86vh; padding: 120px 0 80px; color:#fff; overflow:hidden; }
-    .hero .overlay { position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25) 40%, rgba(0,0,0,.55)); z-index:2; }
+    .hero .overlay { position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.25) 40%, rgba(0,0,0,.55)); z-index:2; pointer-events: none;}
     .hero .hero-content { position:relative; z-index:3; transition:opacity .5s ease, transform .5s ease; }
     .hero-content.hide { opacity:0; transform: translateY(-12px); pointer-events:none; }
     .hero-title { font-weight:900; font-size:clamp(32px,5vw,56px); letter-spacing:-.02em; text-shadow:0 6px 28px rgba(0,0,0,.35); }
@@ -236,7 +236,9 @@
             <a class="btn btn-light btn-lg rounded-0" href="#frota"><i class="bi bi-snow"></i> Refrigerado</a>
             <a class="btn btn-outline-light btn-lg rounded-0" href="#sobre"><i class="bi bi-info-circle"></i> Sobre nós</a>
             <a class="btn btn-primary btn-lg rounded-0" href="#contato"><i class="bi bi-chat-dots"></i> Fale conosco</a>
-          </div>
+            </div>
+            <!-- AQUI: texto de instrução do áudio -->
+            <p class="mt-2 small text-white-50"> Clique sobre o vídeo para ativar ou silenciar o áudio.</p>
         </div>
       </div>
     </div>
@@ -621,7 +623,18 @@
   const videoEl = document.getElementById('heroVideo');
 
   let idx = 0, timer = null, hoverPause = false;
+    
+  // Clique no vídeo: alterna mudo/com som
+if (videoEl) {
+  videoEl.addEventListener('click', () => {
+    videoEl.muted = !videoEl.muted;
 
+    // se o som foi ativado, garante que o vídeo esteja tocando
+    if (!videoEl.muted) {
+      videoEl.play().catch(() => {});
+    }
+  });
+}
   function setHeroTextVisibility(){
     if (!heroText) return;
     if (slides[idx] === videoEl) heroText.classList.add('hide');
