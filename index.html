@@ -128,7 +128,7 @@
     .hero-slide { position:absolute; inset:0; opacity:0; transition: opacity 1.0s ease; }
     .hero-bg { background-size:cover; background-position:center; filter:saturate(1.05) contrast(1.05); }
 
-    /* AQUI: cursor pointer, pois o clique liga/desliga o som */
+    /* Vídeo clicável para áudio */
     .hero-video { object-fit:cover; width:100%; height:100%; cursor:pointer; }
 
     .hero-slide.active { opacity:1; }
@@ -236,9 +236,11 @@
             <a class="btn btn-light btn-lg rounded-0" href="#frota"><i class="bi bi-snow"></i> Refrigerado</a>
             <a class="btn btn-outline-light btn-lg rounded-0" href="#sobre"><i class="bi bi-info-circle"></i> Sobre nós</a>
             <a class="btn btn-primary btn-lg rounded-0" href="#contato"><i class="bi bi-chat-dots"></i> Fale conosco</a>
-            </div>
-            <!-- AQUI: texto de instrução do áudio -->
-            <p class="mt-2 small text-white-50"> Clique sobre o vídeo para ativar ou silenciar o áudio.</p>
+          </div>
+          <!-- Aviso de áudio: agora só aparece no slide do vídeo -->
+          <p class="mt-2 small text-white-50">
+            Clique sobre o vídeo para ativar ou silenciar o áudio.
+          </p>
         </div>
       </div>
     </div>
@@ -623,22 +625,12 @@
   const videoEl = document.getElementById('heroVideo');
 
   let idx = 0, timer = null, hoverPause = false;
-    
-  // Clique no vídeo: alterna mudo/com som
-if (videoEl) {
-  videoEl.addEventListener('click', () => {
-    videoEl.muted = !videoEl.muted;
 
-    // se o som foi ativado, garante que o vídeo esteja tocando
-    if (!videoEl.muted) {
-      videoEl.play().catch(() => {});
-    }
-  });
-}
+  // Agora: texto do hero aparece somente no slide do vídeo
   function setHeroTextVisibility(){
     if (!heroText) return;
-    if (slides[idx] === videoEl) heroText.classList.add('hide');
-    else heroText.classList.remove('hide');
+    if (slides[idx] === videoEl) heroText.classList.remove('hide');
+    else heroText.classList.add('hide');
   }
 
   function renderDots(){
@@ -689,12 +681,14 @@ if (videoEl) {
     videoEl.addEventListener('emptied', failToImage);
   }
 
-  // <<< NOVO: clicar no VÍDEO liga/desliga o som >>>
-  if (videoEl) {
-    videoEl.addEventListener('click', () => {
-      // alterna mute
+  // Clique em qualquer área do hero (exceto botões) quando o slide for o vídeo -> alterna áudio
+  if (hero && videoEl) {
+    hero.addEventListener('click', (e) => {
+      // Não mexe quando clicar nos botões de CTA
+      if (e.target.closest('.btn')) return;
+      if (slides[idx] !== videoEl) return;
+
       videoEl.muted = !videoEl.muted;
-      // se acabou de ativar o som, garante que está reproduzindo
       if (!videoEl.muted) {
         videoEl.play().catch(()=>{});
       }
