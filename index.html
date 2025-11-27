@@ -146,6 +146,17 @@
     .hero-dot{ width:10px; height:10px; border-radius:50%; background:#ffffffaa; border:1px solid #ffffffcc;}
     .hero-dot.active { background:#fff; transform:scale(1.15); }
 
+    /* Texto sutil de áudio (em cima do vídeo) */
+    .audio-hint {
+      position:absolute;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:3;
+      text-align:center;
+      pointer-events:none; /* não bloqueia o clique para ativar o áudio */
+    }
+
     /* Serviços */
     .services-band { background: linear-gradient(180deg, #ffffff 0%, #ffffff 55%, rgba(11,78,162,0.05) 100%); }
     .service-pill {
@@ -226,7 +237,7 @@
     <button class="hero-next" aria-label="Próximo"><i class="bi bi-chevron-right"></i></button>
     <div class="hero-dots" aria-label="Indicadores do slideshow"></div>
 
-    <!-- Texto do hero -->
+    <!-- Texto do hero (apenas no slide da FOTO) -->
     <div class="container hero-content" id="heroText">
       <div class="row justify-content-center text-center">
         <div class="col-xl-10">
@@ -237,13 +248,14 @@
             <a class="btn btn-outline-light btn-lg rounded-0" href="#sobre"><i class="bi bi-info-circle"></i> Sobre nós</a>
             <a class="btn btn-primary btn-lg rounded-0" href="#contato"><i class="bi bi-chat-dots"></i> Fale conosco</a>
           </div>
-          <!-- Aviso de áudio: agora só aparece no slide do vídeo -->
-          <p class="mt-2 small text-white-50">
-            Clique sobre o vídeo para ativar ou silenciar o áudio.
-          </p>
         </div>
       </div>
     </div>
+
+    <!-- Texto sutil de áudio (apenas no slide do VÍDEO) -->
+    <p id="audioHint" class="audio-hint small text-white-50">
+      Clique sobre o vídeo para ativar ou silenciar o áudio.
+    </p>
   </header>
 
   <!-- Serviços -->
@@ -623,14 +635,22 @@
   const hero = document.querySelector('.hero');
   const heroText = document.getElementById('heroText');
   const videoEl = document.getElementById('heroVideo');
+  const audioHint = document.getElementById('audioHint');
 
   let idx = 0, timer = null, hoverPause = false;
 
-  // Agora: texto do hero aparece somente no slide do vídeo
+  // Mostra texto grande só na FOTO e aviso de áudio só no VÍDEO
   function setHeroTextVisibility(){
     if (!heroText) return;
-    if (slides[idx] === videoEl) heroText.classList.remove('hide');
-    else heroText.classList.add('hide');
+    if (slides[idx] === videoEl) {
+      // slide de VÍDEO
+      heroText.classList.add('hide');         // esconde título/botões
+      if (audioHint) audioHint.classList.remove('d-none'); // mostra aviso
+    } else {
+      // slide de FOTO
+      heroText.classList.remove('hide');      // mostra título/botões
+      if (audioHint) audioHint.classList.add('d-none');     // esconde aviso
+    }
   }
 
   function renderDots(){
